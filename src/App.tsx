@@ -1,4 +1,5 @@
 import React from 'react'
+import { MDXProvider } from '@mdx-js/react'
 import { Root, Routes, addPrefetchExcludes } from 'react-static'
 import { Link, Router } from '@reach/router'
 import FancyDiv from 'components/FancyDiv'
@@ -6,6 +7,7 @@ import Dynamic from 'containers/Dynamic'
 import { GlobalStyle } from './styles/GlobalStyle'
 import '@exampledev/new.css'
 
+const Wrapper: React.FC<{}> = ({ children }) => <main children={children} />
 // Any routes that start with 'dynamic' will be treated as non-static routes
 addPrefetchExcludes(['dynamic'])
 
@@ -30,10 +32,12 @@ function App() {
       <div className="content">
         <FancyDiv>
           <React.Suspense fallback={<em>Loading...</em>}>
-            <Router>
-              <Dynamic path="dynamic" />
-              <Routes path="*" />
-            </Router>
+            <MDXProvider components={{ wrapper: Wrapper }}>
+              <Router>
+                <Dynamic path="dynamic" />
+                <Routes path="*" />
+              </Router>
+            </MDXProvider>
           </React.Suspense>
         </FancyDiv>
       </div>
