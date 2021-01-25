@@ -1,4 +1,4 @@
-# SmartHR Design System
+# Design System
 
 ```
 yarn or npm install
